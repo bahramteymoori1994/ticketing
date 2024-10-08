@@ -19,12 +19,8 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @ToString
-public class AbstractStaffBaseEntity
+public abstract class AbstractStaffBaseEntity
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     @Version
     private Long version;
 

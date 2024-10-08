@@ -1,8 +1,7 @@
 package com.example.clinic_ticketing.model.entity;
 
 import com.example.clinic_ticketing.model.entity.patient.AbstractBaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +15,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @ToString
 @Table(name = "receipt")
+@SequenceGenerator(name = "RECEIPT_SEQ", sequenceName = "RECEIPT_SEQ", initialValue = 1, allocationSize = 50)
 public class Receipt extends AbstractBaseEntity
 {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECEIPT_SEQ")
+    private Long id;
 }

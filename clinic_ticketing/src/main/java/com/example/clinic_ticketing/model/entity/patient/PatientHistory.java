@@ -17,8 +17,13 @@ import java.util.Date;
 @SuperBuilder
 @ToString
 @Table(name = "patient_history")
+@SequenceGenerator(name = "PATIENT_HISTORY_SEQ", sequenceName = "PATIENT_HISTORY_SEQ", initialValue = 1, allocationSize = 50)
 public class PatientHistory extends AbstractBaseEntity
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PATIENT_HISTORY_SEQ")
+    private Long id;
+
     @Column(name = "DISEASE_TYPE", length = 50, nullable = false)
     private String diseaseType;
 
@@ -35,4 +40,8 @@ public class PatientHistory extends AbstractBaseEntity
     @Column(name = "IS_CURE", nullable = false)
     @Enumerated(EnumType.STRING)
     private IsCure isCure;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 }

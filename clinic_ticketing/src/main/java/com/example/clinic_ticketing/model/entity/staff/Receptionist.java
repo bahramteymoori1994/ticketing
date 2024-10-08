@@ -16,8 +16,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Table(name = "receptionist")
+@SequenceGenerator(name = "RECEPTIONIST_SEQ", sequenceName = "RECEPTIONIST_SEQ",
+initialValue = 1, allocationSize = 50)
 public class Receptionist extends AbstractStaffBaseEntity
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECEPTIONIST_SEQ")
+    private Long id;
+
     @Column(name = "EMAIL", length = 100, unique = true, nullable = false)
     @Email(message = "Email must be set correctly")
     private String email;

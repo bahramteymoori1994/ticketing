@@ -10,6 +10,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Setter
@@ -18,8 +19,13 @@ import java.util.Date;
 @SuperBuilder
 @ToString
 @Table(name = "patient")
+@SequenceGenerator(name = "PATIENT_SEQ", sequenceName = "PATIENT_SEQ", initialValue = 1, allocationSize = 50)
 public class Patient extends AbstractBaseEntity
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PATIENT_SEQ")
+    private Long id;
+
     @Column(name = "PATIENT_NAME", length = 50, nullable = false)
     private String name;
 
@@ -38,10 +44,12 @@ public class Patient extends AbstractBaseEntity
     private String nationalCode;
 
     @Column(name = "PATIENT_PHONE_NUMBER", length = 11, nullable = false, unique = true)
-    @Pattern(regexp = "^[0-9]{10}$")
     private String phoneNumber;
 
     @Column(name = "PATIENT_BIRTH_DATE", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date birthDate;
+
+    @OneToMany(mappedBy = "patient")
+    private List<PatientHistory> patientHistories;
 }
